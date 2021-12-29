@@ -16,7 +16,7 @@ resource "aws_eks_node_group" "workers" {
       }
 
   update_config {
-    max_unavailable = var.max_unavailable
+    max_unavailable = ( var.max_unavailable == null && var.max_unavailable_percentage == null) ? "1" : var.max_unavailable
     max_unavailable_percentage  = var.max_unavailable_percentage
   }
 
@@ -30,20 +30,20 @@ resource "aws_eks_node_group" "workers" {
   })
 
   dynamic "taint" {
-    for_each = var.taint 
+    for_each = var.taint == null ? [] : [0]
     content {
-      key = each.key
-      value = each.value
-      effect = var.effect
+      key = taint.value["key"]
+      value = taint.value["value"]
+      effect = taint.value["effect"]
     }
   }
 
   dynamic "launch_template" {
-    for_each = var.launch_template
+    for_each = var.launch_template == null ? [] : [0]
     content {
-      id = each.id 
-      name = each.name
-      version = each.version == null ? "latest" : each.version
+      id = launch_template.value["id"] 
+      name = launch_template.value["name"]
+      version = launch_template.value["version"] == null ? "latest" : aunch_template.value["version"]
     }
   }
 
