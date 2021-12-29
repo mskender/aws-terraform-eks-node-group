@@ -28,27 +28,27 @@ resource "aws_eks_node_group" "workers" {
   labels = var.labels
 
   dynamic "taint" {
-    for_each = var.taint == null ? [] : [0]
+    for_each = var.taint 
     content {
-      key = taint.value["key"]
-      value = taint.value["value"]
-      effect = taint.value["effect"]
+      key = taint.value.key
+      value = taint.value.value
+      effect = taint.value.effect
     }
   }
 
   dynamic "launch_template" {
-    for_each = var.launch_template == null ? [] : [0]
+    for_each = var.launch_template 
     content {
-      id = launch_template.value["id"] 
-      name = launch_template.value["name"]
-      version = launch_template.value["version"] == null ? "latest" : aunch_template.value["version"]
+      id = launch_template.value.id 
+      name = launch_template.value.name
+      version = launch_template.value.version == null ? "latest" : launch_template.value.version
     }
   }
 
-  remote_access {
-    ec2_ssh_key = var.ec2_ssh_key_name
-    source_security_group_ids  = var.ec2_security_group_ids
-  }
+  # remote_access {
+  #   ec2_ssh_key = var.ec2_ssh_key_name
+  #   source_security_group_ids  = var.ec2_security_group_ids
+  # }
 
  force_update_version = var.force_update_version
   depends_on = [

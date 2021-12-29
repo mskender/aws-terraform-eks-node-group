@@ -70,12 +70,12 @@ variable capacity_type {
 }
 
 variable taint {
-    type = object({
+    type = list(object({
         key = string
         value = string
         effect = string
-    })
-    default = null
+    }))
+    default = []
     description = "A taint block (or multiple taint blocks) to be applied to the node group."
 }
 
@@ -86,12 +86,12 @@ variable labels {
 }
 
 variable launch_template {
-    type = object ({
+    type = list(object ({
         id = string
         name = string
         version = string
-    })
-    default = null
+    }))
+    default = []
     description = "Optionally, launch node group from a launch template - name (or id, not both ) and version required. Can use keyword 'latest' for version or assign null to use latest template version."
 }
  
