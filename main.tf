@@ -25,9 +25,7 @@ resource "aws_eks_node_group" "workers" {
   disk_size =  var.disk_size
   capacity_type = var.capacity_type
 
-  labels = merge(var.labels,{
-    "eks.amazonaws.com/capacityType" = var.capacity_type
-  })
+  labels = var.labels
 
   dynamic "taint" {
     for_each = var.taint == null ? [] : [0]
