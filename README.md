@@ -41,13 +41,15 @@ provider helm {
 
 ## Requirements
 
-No requirements.
+| Name | Version |
+|------|---------|
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >=3.38.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >=3.38.0 |
 
 ## Modules
 
@@ -78,14 +80,17 @@ No modules.
 | <a name="input_force_update_version"></a> [force\_update\_version](#input\_force\_update\_version) | Whether to force version update if pods cannot be drained. | `bool` | `false` | no |
 | <a name="input_instance_types"></a> [instance\_types](#input\_instance\_types) | Type of worker node instance | `list(string )` | <pre>[<br>  "t3.medium"<br>]</pre> | no |
 | <a name="input_labels"></a> [labels](#input\_labels) | A map of label = value pars to label the node groups with. | `map(any)` | `null` | no |
-| <a name="input_launch_template"></a> [launch\_template](#input\_launch\_template) | Optionally, launch node group from a launch template - name (or id, not both ) and version required. Can use keyword 'latest' for version or assign null to use latest template version. | <pre>object ({<br>        id = string<br>        name = string<br>        version = string<br>    })</pre> | `null` | no |
+| <a name="input_launch_template"></a> [launch\_template](#input\_launch\_template) | Optionally, launch node group from a launch template - name (or id, not both ) and version required. Can use keyword 'latest' for version or assign null to use latest template version. | <pre>list(object ({<br>        id = string<br>        name = string<br>        version = string<br>    }))</pre> | `[]` | no |
 | <a name="input_max_unavailable"></a> [max\_unavailable](#input\_max\_unavailable) | Max unavailable workers during node group update | `string` | `null` | no |
 | <a name="input_max_unavailable_percentage"></a> [max\_unavailable\_percentage](#input\_max\_unavailable\_percentage) | Max unavailable percentage of workers during node group update | `string` | `null` | no |
 | <a name="input_node_group_name"></a> [node\_group\_name](#input\_node\_group\_name) | Worker node group name. | `string` | n/a | yes |
 | <a name="input_node_scaling"></a> [node\_scaling](#input\_node\_scaling) | Worker node autoscaling group scaling constraints | <pre>object({<br>        max_size = number<br>        min_size = number<br>        desired_size = number <br>    })</pre> | <pre>{<br>  "desired_size": 1,<br>  "max_size": 1,<br>  "min_size": 1<br>}</pre> | no |
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | A list of subnet ID's to spawn the worker nodes in | `list(string)` | n/a | yes |
-| <a name="input_taint"></a> [taint](#input\_taint) | A taint block (or multiple taint blocks) to be applied to the node group. | <pre>object({<br>        key = string<br>        value = string<br>        effect = string<br>    })</pre> | `null` | no |
+| <a name="input_taint"></a> [taint](#input\_taint) | A taint block (or multiple taint blocks) to be applied to the node group. | <pre>list(object({<br>        key = string<br>        value = string<br>        effect = string<br>    }))</pre> | `[]` | no |
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_arn"></a> [arn](#output\_arn) | Worker gorup ARN |
+| <a name="output_role_arn"></a> [role\_arn](#output\_role\_arn) | Worker gorup IAM role ARN |
